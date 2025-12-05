@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posada SITITSCe 2025</title>
+    <!-- Metadatos para compartir en redes -->
+    <meta property="og:title" content="¡Te invitamos a la Posada SITITSCe 2025!">
+    <meta property="og:description" content="Celebremos juntos los logros de este año. Jueves 18 de Diciembre.">
+    <meta property="og:image" content="logo sititsce-03.png">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700&display=swap');
+
+        :root {
+            --santa-red: #D91A21;
+            --santa-belt: #222222;
+            --santa-gold: #FFD700;
+            --sititsce-blue: #1B2A58;
+            --card-max-width: 450px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Fondo oscuro elegante para la nieve */
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden; /* Evitar scroll horizontal */
+        }
+
+        /* --- NIEVE --- */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px #000;
+            user-select: none;
+            z-index: 9999;
+            pointer-events: none;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+
+        /* --- CONTROL DE MÚSICA --- */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 2000; /* Por encima de todo */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: none; /* Se muestra después de abrir */
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .music-control:hover { 
+            transform: scale(1.1); 
+            background-color: #fff;
+        }
+
+        /* --- PANTALLA DE APERTURA (SPLASH SCREEN) --- */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--santa-red), #8a0c10);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-in;
+            cursor: pointer;
+        }
+
+        #splash-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.1);
+        }
+
+        .splash-logo-container {
+            width: 160px;
+            height: 160px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); /* Resplandor dorado */
+            animation: pulse 2s infinite;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .splash-logo {
+            max-width: 90%;
+        }
+
+        .click-hint {
+            color: white;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2em;
+            text-align: center;
+            animation: bounce 2s infinite;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* --- TARJETA --- */
+        .santa-card-wrapper {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            opacity: 0; /* Oculto inicialmente */
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .santa-card-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .santa-card {
+            background: var(--santa-red);
+            width: 100%;
+            max-width: var(--card-max-width);
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- DECORACIÓN --- */
+        .santa-fur-top {
+            background-color: white;
+            height: 50px;
+            width: 100%;
+            border-bottom-left-radius: 50% 20px;
+            border-bottom-right-radius: 50% 20px;
+            position: relative;
+            top: -10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        .content-upper {
+            padding: 10px 20px 20px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px;
+        }
+
+        .logo-container {
+            background: white;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 4px solid white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container img.main-logo {
+            max-width: 90%;
+            height: auto;
+        }
+
+        .santa-hat {
+            position: absolute;
+            top: -55px;
+            right: -35px;
+            width: 100px;
+            z-index: 10;
+            transform: rotate(15deg);
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+            pointer-events: none;
+        }
+
+        h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1;
+        }
+
+        h2 {
+            font-size: 1.3em;
+            font-weight: 800;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .union-name {
+            font-size: 0.9em;
+            line-height: 1.3;
+            font-weight: 400;
+            padding: 0 10px;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+
+        /* --- CINTURÓN --- */
+        .santa-belt-container {
+            background-color: var(--santa-belt);
+            height: 55px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .belt-buckle {
+            width: 70px;
+            height: 45px;
+            background: var(--santa-gold);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border: 2px solid #e6c200;
+        }
+        .belt-buckle::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%; height: 60%;
+            background: var(--santa-belt);
+            border-radius: 4px;
+        }
+
+        /* --- CONTENIDO INFERIOR --- */
+        .content-lower {
+            padding: 25px 25px 40px;
+            background: var(--santa-red);
+            border-bottom: 30px solid white; 
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .warm-message {
+            font-size: 1em;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            font-style: italic;
+            color: white;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+        }
+
+        .details-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        .icon {
+            color: var(--santa-red);
+            font-size: 1.3em;
+            margin-right: 15px;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .buttons-container {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de brillo en botones */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        .btn:hover::after { left: 100%; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        
+        .btn-whatsapp { background-color: #25D366; color: white; }
+        .btn-map { background-color: var(--sititsce-blue); color: white; }
+
+        .rsvp-deadline {
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #333;
+            font-weight: bold;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 15px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        /* ANIMACIONES */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* =========================================
+           MEDIA QUERY: PANTALLAS PEQUEÑAS (MÓVIL)
+        ========================================= */
+        @media (max-width: 480px) {
+            .santa-card { width: 100%; max-width: 100%; border-radius: 0; box-shadow: none; min-height: 100vh; }
+            body { padding: 0; background-color: var(--santa-red); }
+            .content-lower { border-radius: 0; padding-bottom: 60px; }
+            h1 { font-size: 2.5em; }
+        }
+
+        /* =========================================
+           CONFIGURACIÓN MAESTRA DE IMPRESIÓN (PDF)
+        ========================================= */
+        @media print {
+            @page { size: 450px 1050px; margin: 0; }
+            body { margin: 0; padding: 0; background: none; width: 450px; height: 1050px; }
+            
+            /* Ocultar elementos web y controles de música */
+            #splash-screen, .snowflake, .music-control { display: none !important; }
+            
+            .santa-card-wrapper { opacity: 1; transform: none; width: 450px; padding: 0; }
+            .santa-card {
+                width: 100%; height: 100%; max-width: none; border-radius: 0; 
+                box-shadow: none; background-color: #D91A21 !important;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+            .content-lower { border-bottom: 40px solid white !important; border-radius: 0; }
+            .santa-belt-container { background-color: #222222 !important; }
+            .belt-buckle { background-color: #FFD700 !important; border-color: #e6c200 !important; }
+            .details-box { background-color: #ffffff !important; }
+            .btn { border: 1px solid #ccc; color: black !important; text-shadow: none; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ELEMENTO DE AUDIO (OCULTO) -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- BOTÓN DE CONTROL DE MÚSICA -->
+    <button id="music-toggle" class="music-control" onclick="toggleMusic()" aria-label="Controlar música">
+        🔊
+    </button>
+
+    <!-- SCRIPT DE NIEVE Y MÚSICA -->
+    <script>
+        // --- NIEVE ---
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❄';
+            
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            snowflake.style.opacity = Math.random();
+            
+            const duration = Math.random() * 3 + 2 + 's';
+            snowflake.style.animationDuration = duration;
+
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, parseFloat(duration) * 1000);
+        }
+
+        if (typeof window !== 'undefined') {
+            setInterval(createSnowflake, 100);
+        }
+
+        // --- APERTURA Y MÚSICA ---
+        function openInvitation() {
+            const splash = document.getElementById('splash-screen');
+            const card = document.getElementById('main-card-wrapper');
+            const audio = document.getElementById('bg-music');
+            const btn = document.getElementById('music-toggle');
+            
+            // Ocultar splash
+            splash.classList.add('hidden');
+            
+            // Mostrar tarjeta
+            setTimeout(() => {
+                card.classList.add('visible');
+            }, 300);
+
+            // Intentar reproducir audio
+            audio.play().then(() => {
+                btn.style.display = 'flex'; // Mostrar botón solo si se reproduce o se intenta
+            }).catch(error => {
+                console.log("El navegador bloqueó la reproducción automática. El usuario debe activar manualmente.", error);
+                btn.textContent = '🔇'; // Mostrar icono de silencio si falla
+                btn.style.display = 'flex';
+            });
+        }
+
+        function toggleMusic() {
+            const audio = document.getElementById('bg-music');
+            const btn = document.getElementById('music-toggle');
+
+            if (audio.paused) {
+                audio.play();
+                btn.textContent = '🔊';
+            } else {
+                audio.pause();
+                btn.textContent = '🔇';
+            }
+        }
+    </script>
+
+    <!-- PANTALLA DE BIENVENIDA -->
+    <div id="splash-screen" onclick="openInvitation()">
+        <div class="splash-logo-container">
+            <img src="logo sititsce-03.png" alt="Logo SITITSCe" class="splash-logo">
+        </div>
+        <div class="click-hint">
+            ¡Tienes una invitación!<br>
+            <span style="font-size: 0.6em; font-family: 'Nunito', sans-serif;">(Toca para abrir)</span>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE LA TARJETA -->
+    <div class="santa-card-wrapper" id="main-card-wrapper">
+        <div class="santa-card">
+            <div class="santa-fur-top"></div>
+
+            <div class="content-upper">
+                <div class="logo-wrapper">
+                    <!-- LOGO SITITSCe -->
+                    <div class="logo-container">
+                        <img src="logo sititsce-03.png" alt="Logo SITITSCe" class="main-logo">
+                    </div>
+                    <!-- TU ARCHIVO GORRO.PNG -->
+                    <img src="gorro.png" alt="Gorro Santa" class="santa-hat">
+                </div>
+                <h1>¡Posada Navideña!</h1>
+                <h2>SITITSCe 2025</h2>
+                
+                <div class="union-name">
+                    Sindicato de Trabajadores del Instituto<br>Tecnológico Superior de Centla
+                </div>
+            </div>
+
+            <div class="santa-belt-container">
+                <div class="belt-buckle"></div>
+            </div>
+
+            <div class="content-lower">
+                
+                <div class="warm-message">
+                    Estimados agremiados:<br>
+                    Les extendemos una fraterna invitación para celebrar juntos los logros de este año y compartir la magia de las fiestas en familia.
+                </div>
+
+                <div class="details-box">
+                    <div class="detail-item">
+                        <div class="icon">📅</div>
+                        <div><strong>Jueves 18 de Diciembre, 2025</strong></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="icon">⏰</div>
+                        <div><strong>13:00 hrs.</strong></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="icon">📍</div>
+                        <div><strong>Salón de la Ganadera</strong></div>
+                    </div>
+                </div>
+
+                <div class="buttons-container">
+                    <a href="https://wa.me/529936978684?text=Hola%20Ing.%20Carlos%2C%20%C2%A1jo%20jo%20jo!%20%F0%9F%8E%85%20Confirmo%20mi%20asistencia%20a%20la%20Posada%20SITITSCe%202025." target="_blank" class="btn btn-whatsapp">
+                    🎅 Confirmar con Ing. Carlos
+                    </a>
+                    <a href="https://maps.app.goo.gl/315Gw8rJ6C4zJR1y5" target="_blank" class="btn btn-map">
+                        🗺️ Ver Ubicación
+                    </a>
+                </div>
+
+                <div class="rsvp-deadline">
+                    ⚠️ Favor de confirmar antes del 10 de Diciembre.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
